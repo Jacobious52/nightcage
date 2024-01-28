@@ -13,6 +13,21 @@
                     throw error;
                 }
             });
+
+            let canvas = document.getElementById('game-canvas');
+            canvas.addEventListener('contextmenu', function(evt) {
+                evt.preventDefault();
+            }, false);
         </script>
+        <div>
+            <h1>nightcage</h1>
+            <h2>controls</h2>
+            <p>space: change tile</p>
+            <p>right mouse: rotate tile</p>
+            <p>left mouse: place tile</p>
+            <p>wasd: move view</p>
+            <p>z/x: zoom view</p>
+        </div>
+        <canvas id="game-canvas" width="1024px" height="1024px"></canvas>
     </body>
 </html>

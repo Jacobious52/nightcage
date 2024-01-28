@@ -5,3 +5,4 @@ web:
 		--out-name "nightcage" \
 		./target/wasm32-unknown-unknown/release/nightcage.wasm
 	wasm-opt -Oz -o ./out/nightcage_bg.wasm ./out/nightcage_bg.wasm
+	

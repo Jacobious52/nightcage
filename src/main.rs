@@ -1,6 +1,7 @@
 use bevy::{
     input::{keyboard::KeyboardInput, mouse::MouseButtonInput},
     prelude::*,
+    window::WindowResolution,
 };
 use bevy_ecs_tilemap::helpers::square_grid::neighbors::Neighbors;
 use bevy_ecs_tilemap::prelude::*;
@@ -8,7 +9,14 @@ use nightcage::camera;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                canvas: Some("#game-canvas".into()),
+                resolution: WindowResolution::new(128.0 * 8.0, 128.0 * 8.0),
+                ..default()
+            }),
+            ..default()
+        }))
         .add_plugins(TilemapPlugin)
         .add_systems(Startup, startup)
         .add_systems(
@@ -32,14 +40,6 @@ fn main() {
 
 fn startup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
-
-    // add a border around the tilemap
-    let border_handle = asset_server.load("border.png");
-    commands.spawn(SpriteBundle {
-        texture: border_handle,
-        transform: Transform::from_xyz(0.0, 0.0, -1.0),
-        ..Default::default()
-    });
 
     let texture_handle: Handle<Image> = asset_server.load("tiles.png");
     let map_size = TilemapSize { x: 7, y: 7 };
